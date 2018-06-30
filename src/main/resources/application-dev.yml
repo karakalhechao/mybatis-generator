@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: mybatis
+
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zwtest?useUnicode=true&characterEncoding=utf8
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+server:
+  context-path: /girl
+  port: 8080
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+#pagehelper分页插件配置
+#pagehelper.reasonable=true
+#pagehelper.supportMethodsArguments=true
+#pagehelper.params=count=countSql
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count,countsql
+logging:
+  level:
+     com:
+       project:
+          dao: debug

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.ZwLogMapper" >
+  <resultMap id="BaseResultMap" type="com.mybatis.model.ZwLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="did" property="did" jdbcType="CHAR" />
+    <result column="transid" property="transid" jdbcType="CHAR" />
+    <result column="action" property="action" jdbcType="INTEGER" />
+    <result column="err_code" property="errCode" jdbcType="CHAR" />
+    <result column="err_str" property="errStr" jdbcType="CHAR" />
+    <result column="zw_code" property="zwCode" jdbcType="CHAR" />
+    <result column="zw_str" property="zwStr" jdbcType="CHAR" />
+    <result column="copr_id" property="coprId" jdbcType="CHAR" />
+    <result column="repeat_copr_ids" property="repeatCoprIds" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mybatis.model.ZwLog" extends="BaseResultMap" >
+    <result column="report_json" property="reportJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, did, transid, action, err_code, err_str, zw_code, zw_str, copr_id, 
+    repeat_copr_ids
+  </sql>
+  <sql id="Blob_Column_List" >
+    report_json
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from zw_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zw_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mybatis.model.ZwLog" >
+    insert into zw_log (id, create_time, did, 
+      transid, action, err_code, 
+      err_str, zw_code, zw_str, copr_id, 
+      repeat_copr_ids, report_json)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{did,jdbcType=CHAR}, 
+      #{transid,jdbcType=CHAR}, #{action,jdbcType=INTEGER}, #{errCode,jdbcType=CHAR}, 
+      #{errStr,jdbcType=CHAR}, #{zwCode,jdbcType=CHAR}, #{zwStr,jdbcType=CHAR}, #{coprId,jdbcType=CHAR}, 
+      #{repeatCoprIds,jdbcType=VARCHAR}, #{reportJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybatis.model.ZwLog" >
+    insert into zw_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="transid != null" >
+        transid,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="errCode != null" >
+        err_code,
+      </if>
+      <if test="errStr != null" >
+        err_str,
+      </if>
+      <if test="zwCode != null" >
+        zw_code,
+      </if>
+      <if test="zwStr != null" >
+        zw_str,
+      </if>
+      <if test="coprId != null" >
+        copr_id,
+      </if>
+      <if test="repeatCoprIds != null" >
+        repeat_copr_ids,
+      </if>
+      <if test="reportJson != null" >
+        report_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=CHAR},
+      </if>
+      <if test="transid != null" >
+        #{transid,jdbcType=CHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=INTEGER},
+      </if>
+      <if test="errCode != null" >
+        #{errCode,jdbcType=CHAR},
+      </if>
+      <if test="errStr != null" >
+        #{errStr,jdbcType=CHAR},
+      </if>
+      <if test="zwCode != null" >
+        #{zwCode,jdbcType=CHAR},
+      </if>
+      <if test="zwStr != null" >
+        #{zwStr,jdbcType=CHAR},
+      </if>
+      <if test="coprId != null" >
+        #{coprId,jdbcType=CHAR},
+      </if>
+      <if test="repeatCoprIds != null" >
+        #{repeatCoprIds,jdbcType=VARCHAR},
+      </if>
+      <if test="reportJson != null" >
+        #{reportJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybatis.model.ZwLog" >
+    update zw_log
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="did != null" >
+        did = #{did,jdbcType=CHAR},
+      </if>
+      <if test="transid != null" >
+        transid = #{transid,jdbcType=CHAR},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=INTEGER},
+      </if>
+      <if test="errCode != null" >
+        err_code = #{errCode,jdbcType=CHAR},
+      </if>
+      <if test="errStr != null" >
+        err_str = #{errStr,jdbcType=CHAR},
+      </if>
+      <if test="zwCode != null" >
+        zw_code = #{zwCode,jdbcType=CHAR},
+      </if>
+      <if test="zwStr != null" >
+        zw_str = #{zwStr,jdbcType=CHAR},
+      </if>
+      <if test="coprId != null" >
+        copr_id = #{coprId,jdbcType=CHAR},
+      </if>
+      <if test="repeatCoprIds != null" >
+        repeat_copr_ids = #{repeatCoprIds,jdbcType=VARCHAR},
+      </if>
+      <if test="reportJson != null" >
+        report_json = #{reportJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mybatis.model.ZwLog" >
+    update zw_log
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      did = #{did,jdbcType=CHAR},
+      transid = #{transid,jdbcType=CHAR},
+      action = #{action,jdbcType=INTEGER},
+      err_code = #{errCode,jdbcType=CHAR},
+      err_str = #{errStr,jdbcType=CHAR},
+      zw_code = #{zwCode,jdbcType=CHAR},
+      zw_str = #{zwStr,jdbcType=CHAR},
+      copr_id = #{coprId,jdbcType=CHAR},
+      repeat_copr_ids = #{repeatCoprIds,jdbcType=VARCHAR},
+      report_json = #{reportJson,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybatis.model.ZwLog" >
+    update zw_log
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      did = #{did,jdbcType=CHAR},
+      transid = #{transid,jdbcType=CHAR},
+      action = #{action,jdbcType=INTEGER},
+      err_code = #{errCode,jdbcType=CHAR},
+      err_str = #{errStr,jdbcType=CHAR},
+      zw_code = #{zwCode,jdbcType=CHAR},
+      zw_str = #{zwStr,jdbcType=CHAR},
+      copr_id = #{coprId,jdbcType=CHAR},
+      repeat_copr_ids = #{repeatCoprIds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

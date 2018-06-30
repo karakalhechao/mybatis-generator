@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.ZwActionMapper" >
+  <resultMap id="BaseResultMap" type="com.mybatis.model.ZwAction" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="CHAR" />
+    <result column="trans_id" property="transId" jdbcType="CHAR" />
+    <result column="copr_id" property="coprId" jdbcType="CHAR" />
+    <result column="action_type" property="actionType" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="isbatch" property="isbatch" jdbcType="INTEGER" />
+    <result column="music_id" property="musicId" jdbcType="CHAR" />
+    <result column="zwcz_type" property="zwczType" jdbcType="CHAR" />
+    <result column="hmd_type" property="hmdType" jdbcType="CHAR" />
+    <result column="zw_code" property="zwCode" jdbcType="VARCHAR" />
+    <result column="audit_status" property="auditStatus" jdbcType="INTEGER" />
+    <result column="song_times" property="songTimes" jdbcType="INTEGER" />
+    <result column="new_copyrightId" property="newCopyrightid" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="audit_person" property="auditPerson" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mybatis.model.ZwActionWithBLOBs" extends="BaseResultMap" >
+    <result column="copr_name" property="coprName" jdbcType="LONGVARCHAR" />
+    <result column="singername" property="singername" jdbcType="LONGVARCHAR" />
+    <result column="copr_desc" property="coprDesc" jdbcType="LONGVARCHAR" />
+    <result column="ftp_lrc_path" property="ftpLrcPath" jdbcType="LONGVARCHAR" />
+    <result column="ftp_mp3_path" property="ftpMp3Path" jdbcType="LONGVARCHAR" />
+    <result column="err_str" property="errStr" jdbcType="LONGVARCHAR" />
+    <result column="mp3_history_path" property="mp3HistoryPath" jdbcType="LONGVARCHAR" />
+    <result column="new_musicfilepath" property="newMusicfilepath" jdbcType="LONGVARCHAR" />
+    <result column="del_copyrightids" property="delCopyrightids" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, did, trans_id, copr_id, action_type, create_time, status, isbatch, music_id, 
+    zwcz_type, hmd_type, zw_code, audit_status, song_times, new_copyrightId, update_time, 
+    audit_person, priority
+  </sql>
+  <sql id="Blob_Column_List" >
+    copr_name, singername, copr_desc, ftp_lrc_path, ftp_mp3_path, err_str, mp3_history_path, 
+    new_musicfilepath, del_copyrightids
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from zw_action
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zw_action
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mybatis.model.ZwActionWithBLOBs" >
+    insert into zw_action (id, did, trans_id, copr_id, 
+      action_type, create_time, status, 
+      isbatch, music_id, zwcz_type, 
+      hmd_type, zw_code, audit_status, 
+      song_times, new_copyrightId, update_time, 
+      audit_person, priority, copr_name, 
+      singername, copr_desc, ftp_lrc_path, 
+      ftp_mp3_path, err_str, mp3_history_path, 
+      new_musicfilepath, del_copyrightids
+      )
+    values (#{id,jdbcType=INTEGER}, #{did,jdbcType=CHAR}, #{transId,jdbcType=CHAR}, #{coprId,jdbcType=CHAR}, 
+      #{actionType,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{isbatch,jdbcType=INTEGER}, #{musicId,jdbcType=CHAR}, #{zwczType,jdbcType=CHAR}, 
+      #{hmdType,jdbcType=CHAR}, #{zwCode,jdbcType=VARCHAR}, #{auditStatus,jdbcType=INTEGER}, 
+      #{songTimes,jdbcType=INTEGER}, #{newCopyrightid,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{auditPerson,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{coprName,jdbcType=LONGVARCHAR}, 
+      #{singername,jdbcType=LONGVARCHAR}, #{coprDesc,jdbcType=LONGVARCHAR}, #{ftpLrcPath,jdbcType=LONGVARCHAR}, 
+      #{ftpMp3Path,jdbcType=LONGVARCHAR}, #{errStr,jdbcType=LONGVARCHAR}, #{mp3HistoryPath,jdbcType=LONGVARCHAR}, 
+      #{newMusicfilepath,jdbcType=LONGVARCHAR}, #{delCopyrightids,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybatis.model.ZwActionWithBLOBs" >
+    insert into zw_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="coprId != null" >
+        copr_id,
+      </if>
+      <if test="actionType != null" >
+        action_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isbatch != null" >
+        isbatch,
+      </if>
+      <if test="musicId != null" >
+        music_id,
+      </if>
+      <if test="zwczType != null" >
+        zwcz_type,
+      </if>
+      <if test="hmdType != null" >
+        hmd_type,
+      </if>
+      <if test="zwCode != null" >
+        zw_code,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="songTimes != null" >
+        song_times,
+      </if>
+      <if test="newCopyrightid != null" >
+        new_copyrightId,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="auditPerson != null" >
+        audit_person,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="coprName != null" >
+        copr_name,
+      </if>
+      <if test="singername != null" >
+        singername,
+      </if>
+      <if test="coprDesc != null" >
+        copr_desc,
+      </if>
+      <if test="ftpLrcPath != null" >
+        ftp_lrc_path,
+      </if>
+      <if test="ftpMp3Path != null" >
+        ftp_mp3_path,
+      </if>
+      <if test="errStr != null" >
+        err_str,
+      </if>
+      <if test="mp3HistoryPath != null" >
+        mp3_history_path,
+      </if>
+      <if test="newMusicfilepath != null" >
+        new_musicfilepath,
+      </if>
+      <if test="delCopyrightids != null" >
+        del_copyrightids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=CHAR},
+      </if>
+      <if test="transId != null" >
+        #{transId,jdbcType=CHAR},
+      </if>
+      <if test="coprId != null" >
+        #{coprId,jdbcType=CHAR},
+      </if>
+      <if test="actionType != null" >
+        #{actionType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="isbatch != null" >
+        #{isbatch,jdbcType=INTEGER},
+      </if>
+      <if test="musicId != null" >
+        #{musicId,jdbcType=CHAR},
+      </if>
+      <if test="zwczType != null" >
+        #{zwczType,jdbcType=CHAR},
+      </if>
+      <if test="hmdType != null" >
+        #{hmdType,jdbcType=CHAR},
+      </if>
+      <if test="zwCode != null" >
+        #{zwCode,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="songTimes != null" >
+        #{songTimes,jdbcType=INTEGER},
+      </if>
+      <if test="newCopyrightid != null" >
+        #{newCopyrightid,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditPerson != null" >
+        #{auditPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="coprName != null" >
+        #{coprName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="singername != null" >
+        #{singername,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coprDesc != null" >
+        #{coprDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpLrcPath != null" >
+        #{ftpLrcPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpMp3Path != null" >
+        #{ftpMp3Path,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errStr != null" >
+        #{errStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mp3HistoryPath != null" >
+        #{mp3HistoryPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newMusicfilepath != null" >
+        #{newMusicfilepath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="delCopyrightids != null" >
+        #{delCopyrightids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybatis.model.ZwActionWithBLOBs" >
+    update zw_action
+    <set >
+      <if test="did != null" >
+        did = #{did,jdbcType=CHAR},
+      </if>
+      <if test="transId != null" >
+        trans_id = #{transId,jdbcType=CHAR},
+      </if>
+      <if test="coprId != null" >
+        copr_id = #{coprId,jdbcType=CHAR},
+      </if>
+      <if test="actionType != null" >
+        action_type = #{actionType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="isbatch != null" >
+        isbatch = #{isbatch,jdbcType=INTEGER},
+      </if>
+      <if test="musicId != null" >
+        music_id = #{musicId,jdbcType=CHAR},
+      </if>
+      <if test="zwczType != null" >
+        zwcz_type = #{zwczType,jdbcType=CHAR},
+      </if>
+      <if test="hmdType != null" >
+        hmd_type = #{hmdType,jdbcType=CHAR},
+      </if>
+      <if test="zwCode != null" >
+        zw_code = #{zwCode,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="songTimes != null" >
+        song_times = #{songTimes,jdbcType=INTEGER},
+      </if>
+      <if test="newCopyrightid != null" >
+        new_copyrightId = #{newCopyrightid,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditPerson != null" >
+        audit_person = #{auditPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="coprName != null" >
+        copr_name = #{coprName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="singername != null" >
+        singername = #{singername,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coprDesc != null" >
+        copr_desc = #{coprDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpLrcPath != null" >
+        ftp_lrc_path = #{ftpLrcPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpMp3Path != null" >
+        ftp_mp3_path = #{ftpMp3Path,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errStr != null" >
+        err_str = #{errStr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mp3HistoryPath != null" >
+        mp3_history_path = #{mp3HistoryPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newMusicfilepath != null" >
+        new_musicfilepath = #{newMusicfilepath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="delCopyrightids != null" >
+        del_copyrightids = #{delCopyrightids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mybatis.model.ZwActionWithBLOBs" >
+    update zw_action
+    set did = #{did,jdbcType=CHAR},
+      trans_id = #{transId,jdbcType=CHAR},
+      copr_id = #{coprId,jdbcType=CHAR},
+      action_type = #{actionType,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      isbatch = #{isbatch,jdbcType=INTEGER},
+      music_id = #{musicId,jdbcType=CHAR},
+      zwcz_type = #{zwczType,jdbcType=CHAR},
+      hmd_type = #{hmdType,jdbcType=CHAR},
+      zw_code = #{zwCode,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=INTEGER},
+      song_times = #{songTimes,jdbcType=INTEGER},
+      new_copyrightId = #{newCopyrightid,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      audit_person = #{auditPerson,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      copr_name = #{coprName,jdbcType=LONGVARCHAR},
+      singername = #{singername,jdbcType=LONGVARCHAR},
+      copr_desc = #{coprDesc,jdbcType=LONGVARCHAR},
+      ftp_lrc_path = #{ftpLrcPath,jdbcType=LONGVARCHAR},
+      ftp_mp3_path = #{ftpMp3Path,jdbcType=LONGVARCHAR},
+      err_str = #{errStr,jdbcType=LONGVARCHAR},
+      mp3_history_path = #{mp3HistoryPath,jdbcType=LONGVARCHAR},
+      new_musicfilepath = #{newMusicfilepath,jdbcType=LONGVARCHAR},
+      del_copyrightids = #{delCopyrightids,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybatis.model.ZwAction" >
+    update zw_action
+    set did = #{did,jdbcType=CHAR},
+      trans_id = #{transId,jdbcType=CHAR},
+      copr_id = #{coprId,jdbcType=CHAR},
+      action_type = #{actionType,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      isbatch = #{isbatch,jdbcType=INTEGER},
+      music_id = #{musicId,jdbcType=CHAR},
+      zwcz_type = #{zwczType,jdbcType=CHAR},
+      hmd_type = #{hmdType,jdbcType=CHAR},
+      zw_code = #{zwCode,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=INTEGER},
+      song_times = #{songTimes,jdbcType=INTEGER},
+      new_copyrightId = #{newCopyrightid,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      audit_person = #{auditPerson,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
